@@ -33,7 +33,8 @@ A React application built with Vite that allows users to discover movies by genr
 1. **Clone the repository**  
    ```bash
    git clone https://github.com/yourusername/movie-explorer.git
-   cd movie-explorer```
+   cd movie-explorer
+   ```
 
 2. **Install dependencies**   
     ```bash
