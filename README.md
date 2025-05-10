@@ -22,9 +22,13 @@ A React application built with Vite that allows users to discover movies by genr
 
 - React (Vite)
 - Axios for API calls
-- Tailwind CSS (optional, remove if not used)
+- Tailwind CSS 
 - React Context API
 - TMDB API
+- Material UI
+- Swiper JS
+- lodash.debounce
+- React Router Dom
 
 ---
 
