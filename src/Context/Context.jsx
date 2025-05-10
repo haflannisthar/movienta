@@ -5,8 +5,15 @@ import { useNavigate } from "react-router-dom";
 
 export const MovieContext = createContext(null);
 
+const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+
+
+
 
 export default function MovieProvider({ children }) {
+
+
+  
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
@@ -76,7 +83,7 @@ export default function MovieProvider({ children }) {
 
 
       const res = await axios.get(
-        `https://api.themoviedb.org/3/movie/popular?api_key=e9db7b0ad0fc429854328f635110a391&page=${pageNum}`
+        `https://api.themoviedb.org/3/movie/popular?api_key=${apiKey}&page=${pageNum}`
       );
 
 
@@ -108,7 +115,7 @@ export default function MovieProvider({ children }) {
       setLoading(true); // Set loading to true while fetching genres
       try {
         const res = await axios.get(
-          `https://api.themoviedb.org/3/genre/movie/list?api_key=e9db7b0ad0fc429854328f635110a391`
+          `https://api.themoviedb.org/3/genre/movie/list?api_key=${apiKey}`
         );
         setLoading(false);
 
@@ -137,7 +144,7 @@ export default function MovieProvider({ children }) {
       try {
         const genreQuery = selectedGenres.join('|');
         const res = await axios.get(
-          `https://api.themoviedb.org/3/discover/movie?api_key=e9db7b0ad0fc429854328f635110a391&with_genres=${genreQuery}&page=${genrePage}`
+          `https://api.themoviedb.org/3/discover/movie?api_key=${apiKey}&with_genres=${genreQuery}&page=${genrePage}`
         );
 
 

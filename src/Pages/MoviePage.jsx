@@ -7,6 +7,8 @@ import MovieDetails from '../Components/MovieDetails';
 import Footer from '../Components/Footer';
 
 
+const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+
 
 function MoviePage() {
 
@@ -28,10 +30,9 @@ function MoviePage() {
 
       try {
 
-        const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=e9db7b0ad0fc429854328f635110a391`)
+        const response = await axios.get(`https://api.themoviedb.org/3/movie/${movieId}?api_key=${apiKey}`)
         setLoading(false)
         setMovie(response.data)
-        console.log(response)
         setError(null)
 
       } catch (error) {

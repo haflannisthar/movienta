@@ -5,6 +5,7 @@ import NavBar from "../Components/NavBar";
 import MovieCard from '../Components/MovieCard';
 import Footer from '../Components/Footer';
 
+const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
 
 const FavoriteMoviesPage = () => {
@@ -19,7 +20,7 @@ const FavoriteMoviesPage = () => {
     const fetchFavoriteMovies = async () => {
       try {
         const requests = favoriteMovies.map((id) =>
-          axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=e9db7b0ad0fc429854328f635110a391`)
+          axios.get(`https://api.themoviedb.org/3/movie/${id}?api_key=${apiKey}`)
         );
         const responses = await Promise.all(requests);
         const movieData = responses.map(res => res.data);

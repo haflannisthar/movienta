@@ -7,6 +7,8 @@ import Tooltip from '@mui/material/Tooltip';
 import axios from 'axios';
 import { Actor } from '../assets';
 
+const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+
 
 function MovieDetails({ movie }) {
     const { favoriteMovies, addOrRemoveFavorite } = useContext(MovieContext);
@@ -35,7 +37,7 @@ function MovieDetails({ movie }) {
 
             try {
 
-                const response = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=e9db7b0ad0fc429854328f635110a391`)
+                const response = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/credits?api_key=${apiKey}`)
                 const data = response.data;
                 const cast = data.cast.slice(0, 6); // Get the first 6 actors
                 setActors(cast);
@@ -52,7 +54,7 @@ function MovieDetails({ movie }) {
         }
 
         async function getTrailers() {
-            const response = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=e9db7b0ad0fc429854328f635110a391`)
+            const response = await axios.get(`https://api.themoviedb.org/3/movie/${movie.id}/videos?api_key=${apiKey}`)
             const data = response.data;
 
             const movieTrailer = data.results.filter((video) => video.type === "Trailer" && video.site === "YouTube").map((video) => video.key);

@@ -67,6 +67,10 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
   },
 }));
 
+
+const apiKey = import.meta.env.VITE_TMDB_API_KEY;
+
+
 function NavBar() {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -93,7 +97,7 @@ function NavBar() {
     if (!term.trim()) return;
 
     try {
-      const res = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${term}&api_key=e9db7b0ad0fc429854328f635110a391`);
+      const res = await axios.get(`https://api.themoviedb.org/3/search/movie?query=${term}&api_key=${apiKey}`);
       let results = res.data.results || [];
 
       // Filter out duplicates and invalid entries
