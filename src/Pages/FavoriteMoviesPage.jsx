@@ -12,6 +12,7 @@ const FavoriteMoviesPage = () => {
   const [movies, setMovies] = useState([]);
   const [movieError, setMovieError] = useState(false);
 
+  // Fetch favorite movies from the API
   useEffect(() => {
     if (!favoriteMovies || favoriteMovies.length === 0) return;
 

@@ -85,6 +85,10 @@ function NavBar() {
 
   const handleLogout = () => logout();
 
+  // Fetch movies based on search term
+  // This function is debounced to avoid excessive API calls
+  // It fetches movies from the TMDB API based on the search term
+  // and filters out duplicates and invalid entries
   const fetchMovies = async (term) => {
     if (!term.trim()) return;
 
@@ -108,17 +112,20 @@ function NavBar() {
     }
   };
 
+  // Debounce the fetchMovies function to limit the number of API calls
   const debouncedSearch = React.useMemo(
     () => debounce(fetchMovies, 300),
     []
   );
 
+  // Cleanup function to cancel the debounced search when the component unmounts
   useEffect(() => {
     return () => {
       debouncedSearch.cancel();
     };
   }, [debouncedSearch]);
 
+  // Handle search input change
   const handleSearchInputChange = (e) => {
     const value = e.target.value;
     setSearchTerm(value);

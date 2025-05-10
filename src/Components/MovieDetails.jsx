@@ -14,16 +14,21 @@ function MovieDetails({ movie }) {
     const [directors, setDirectors] = useState([]);
     const [trailers, setTrailers] = useState([]);
 
+    // 
     const getVoteColor = (vote) => {
         if (vote >= 7) return 'bg-[#32CD32]';
         if (vote >= 4) return 'bg-[#FDDA0D]';
         return 'bg-[#D22B2B]';
     };
 
+    // Check if the movie is in the favoriteMovies array
     const isFavorite = favoriteMovies.includes(movie.id);
 
 
-
+//  fetch actors and directors
+    //  and trailers when the movie prop changes
+    //  useEffect is used to perform side effects in function components
+   
     useEffect(() => {
         async function getActors() {
 
@@ -65,6 +70,7 @@ function MovieDetails({ movie }) {
         }
     }, [movie]);
 
+    // Function to get the actor image URL
     const getActorImage = (path) => {
         return path ? `https://image.tmdb.org/t/p/w200${path}` : Actor; // Show default actor image if no path is available
     };

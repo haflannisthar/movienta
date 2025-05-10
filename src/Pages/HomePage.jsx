@@ -138,7 +138,7 @@ function HomePage() {
 
 
 
-
+{/* Hollywood Stars Section */}
       <div className='bg-[#228EE6] min-h-[400px]  py-5 '>
 
         <div className='flex flex-col items-center justify-center'>

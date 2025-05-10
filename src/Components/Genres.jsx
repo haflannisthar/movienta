@@ -15,6 +15,7 @@ function Genres() {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
 
+  // Toggle genre selection
   const toggleGenre = (id) => {
     if (selectedGenres.includes(id)) {
       setSelectedGenres(selectedGenres.filter(g => g !== id));

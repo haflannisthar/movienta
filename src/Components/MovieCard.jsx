@@ -11,7 +11,7 @@ function MovieCard({ movie, index }) {
   const navigate = useNavigate();
 
   let genreNames = [];
-
+//  Check if genres is an array of objects or an array of IDs and map accordingly 
 if (Array.isArray(movie.genres) && movie.genres.length && typeof movie.genres[0] === 'object') {
   genreNames = movie.genres.map(g => g.name);
 } else if (Array.isArray(movie.genre_ids)) {
@@ -21,13 +21,14 @@ if (Array.isArray(movie.genres) && movie.genres.length && typeof movie.genres[0]
     .map(g => g.name);
 }
 
-
+// Check if genres is an array of IDs and map accordingly
   const getVoteColor = (vote) => {
     if (vote >= 7) return 'bg-[#32CD32]';
     if (vote >= 4) return 'bg-[#FDDA0D]';
     return 'bg-[#D22B2B]';
   };
 
+  // Check if the movie is in the favoriteMovies array
   const isFavorite = favoriteMovies.includes(movie.id);
 
   function handleNavigateToMovie(movieId, movieName) {
@@ -35,6 +36,10 @@ if (Array.isArray(movie.genres) && movie.genres.length && typeof movie.genres[0]
     navigate(`/movie?id=${movieId}&name=${movieName}`);
   }
 
+  // Function to handle favorite click
+  // This function is called when the star icon is clicked
+  // It stops the click event from bubbling up to the parent element
+  // and calls the addOrRemoveFavorite function with the movieId
   function handleFavoriteClick(e, movieId) {
     e.stopPropagation(); // This stops the click event from bubbling up to the parent
     addOrRemoveFavorite(movieId);

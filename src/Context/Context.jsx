@@ -96,6 +96,7 @@ export default function MovieProvider({ children }) {
 
   };
 
+  // Load more movies
   const loadMoreMovies = () => {
     fetchMovies(page + 1);
   };
@@ -166,6 +167,7 @@ export default function MovieProvider({ children }) {
 
 
 
+// Add or remove favorite movies
   const addOrRemoveFavorite = (movieId) => {
   const isFavorite = favoriteMovies.includes(movieId);
   let updatedFavorites;
@@ -183,7 +185,7 @@ export default function MovieProvider({ children }) {
 };
 
 
-
+// Load favorite movies from local storage on initial load
 useEffect(() => {
   const stored = localStorage.getItem("favoriteMovies");
   if (stored) {
@@ -223,7 +225,7 @@ useEffect(() => {
   }
 
 
-
+// Logout function
   const logout = () => {
     setIsAuthenticated(false);
     setUser(null);

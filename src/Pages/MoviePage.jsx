@@ -20,10 +20,9 @@ function MoviePage() {
 
   const movieId = params.get('id')
 
-  // const fetchMovieDetails = async () => {
-  //   try {
+ 
 
-
+//  fetching movie details 
   useEffect(() => {
     async function fetchMovie() {
 
