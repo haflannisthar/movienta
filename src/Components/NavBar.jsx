@@ -162,7 +162,7 @@ function NavBar() {
 
             {/* Mobile Menu */}
             <Box sx={{ display: { xs: 'flex', md: 'none' }, mr: 2 }}>
-              <IconButton size="large" onClick={handleOpenNavMenu} color="inherit">
+              <IconButton size="large" onClick={handleOpenNavMenu} sx={{ color: 'text.primary' }}>
                 <MenuIcon />
               </IconButton>
               <Menu anchorEl={anchorElNav} open={Boolean(anchorElNav)} onClose={handleCloseNavMenu}>
