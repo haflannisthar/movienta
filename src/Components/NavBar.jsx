@@ -145,7 +145,7 @@ function NavBar() {
         elevation={0}
         sx={{
           zIndex: 1000,
-          backgroundColor: 'rgba(255, 255, 255, 0.1)',
+         backgroundColor: darkMode ? 'rgba(255, 255, 255, 0.1)' : 'rgba(211, 211, 211, 0.7)',
           backdropFilter: 'blur(12px)',
           WebkitBackdropFilter: 'blur(12px)',
           border: '1px solid rgba(255, 255, 255, 0.3)',
