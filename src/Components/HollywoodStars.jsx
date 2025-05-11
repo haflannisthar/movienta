@@ -1,6 +1,11 @@
 import React from 'react';
+import { MovieContext } from "../Context/Context";
+import { useContext } from 'react';
 
 function HollywoodStars() {
+
+      const { darkMode } = useContext(MovieContext);
+    
     const actors = [
         {
             name: 'Leonardo DiCaprio',
@@ -34,7 +39,7 @@ function HollywoodStars() {
                         alt={actor.name}
                         className="w-40 h-40 object-cover rounded-full"
                     />
-                    <p className="mt-2 text-white font-semibold">{actor.name}</p>
+                    <p className="mt-2  font-semibold" style={{color: 'text.primary'}}>{actor.name}</p>
                 </div>
 
             ))}

@@ -57,7 +57,7 @@ const FavoriteMoviesPage = () => {
     </div>
   </div>
 
-<hr  className="text-white"/>
+<hr  className="text.primary"/>
    <Footer />
 
 </div>

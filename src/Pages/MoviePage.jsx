@@ -87,7 +87,7 @@ function MoviePage() {
   <MovieDetails movie={movie} />
 )}
 
-<hr  className='text-white mt-5' />
+<hr  className='text.primary mt-5' />
 
 <Footer/>
 

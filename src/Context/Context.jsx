@@ -13,7 +13,7 @@ const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 export default function MovieProvider({ children }) {
 
 
-  
+
 
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
@@ -30,16 +30,32 @@ export default function MovieProvider({ children }) {
 
   const [favoriteMovies, setFavoriteMovies] = useState([]);
 
-  
-
-
-  const navigate=useNavigate()
-
-
   const [lastSearchMovie, setLastSearchMovie] = useState(() => {
     return localStorage.getItem('lastSearchMovie') || '';
   });
 
+  const [darkMode, setDarkMode] = useState(true); // default true
+
+  const navigate = useNavigate()
+
+// Check if dark mode is enabled in local storage on initial load
+  useEffect(() => {
+    const stored = localStorage.getItem("darkMode");
+    if (stored !== null) {
+      setDarkMode(stored === "true");
+    }
+  }, []);
+
+// Save dark mode preference to local storage whenever it changes
+  useEffect(() => {
+    localStorage.setItem("darkMode", darkMode);
+  }, [darkMode]);
+
+  const toggleDarkMode = () => {
+    setDarkMode((prev) => !prev);
+  };
+
+// Save last searched movie to local storage whenever it changes
   useEffect(() => {
     if (lastSearchMovie) {
       localStorage.setItem('lastSearchMovie', lastSearchMovie);
@@ -65,7 +81,7 @@ export default function MovieProvider({ children }) {
   // Fetch movies on initial load stop loading
   useEffect(() => {
     fetchMovies();
-    setLoading(false); 
+    setLoading(false);
     setLoadMoreLoading(false);
   }, []);
 
@@ -89,7 +105,7 @@ export default function MovieProvider({ children }) {
 
       if (pageNum === 1) {
         setMovies(res.data.results);
-        setLoading(false); 
+        setLoading(false);
       } else {
         setMovies(prev => [...prev, ...res.data.results]);
         setLoadMoreLoading(false);
@@ -122,7 +138,7 @@ export default function MovieProvider({ children }) {
         setGenres(res.data.genres);
       } catch (error) {
         console.error("Error fetching genres:", error);
-        setLoading(false); 
+        setLoading(false);
       }
     };
 
@@ -174,31 +190,31 @@ export default function MovieProvider({ children }) {
 
 
 
-// Add or remove favorite movies
+  // Add or remove favorite movies
   const addOrRemoveFavorite = (movieId) => {
-  const isFavorite = favoriteMovies.includes(movieId);
-  let updatedFavorites;
+    const isFavorite = favoriteMovies.includes(movieId);
+    let updatedFavorites;
 
-  if (isFavorite) {
-    updatedFavorites = favoriteMovies.filter((id) => id !== movieId);
-  } else {
-    updatedFavorites = [...favoriteMovies, movieId];
-  }
+    if (isFavorite) {
+      updatedFavorites = favoriteMovies.filter((id) => id !== movieId);
+    } else {
+      updatedFavorites = [...favoriteMovies, movieId];
+    }
 
-  setFavoriteMovies(updatedFavorites);
-  localStorage.setItem("favoriteMovies", JSON.stringify(updatedFavorites));
+    setFavoriteMovies(updatedFavorites);
+    localStorage.setItem("favoriteMovies", JSON.stringify(updatedFavorites));
 
-  console.log("Favorite Movie IDs:", updatedFavorites);
-};
+    console.log("Favorite Movie IDs:", updatedFavorites);
+  };
 
 
-// Load favorite movies from local storage on initial load
-useEffect(() => {
-  const stored = localStorage.getItem("favoriteMovies");
-  if (stored) {
-    setFavoriteMovies(JSON.parse(stored));
-  }
-}, []);
+  // Load favorite movies from local storage on initial load
+  useEffect(() => {
+    const stored = localStorage.getItem("favoriteMovies");
+    if (stored) {
+      setFavoriteMovies(JSON.parse(stored));
+    }
+  }, []);
 
 
 
@@ -232,7 +248,7 @@ useEffect(() => {
   }
 
 
-// Logout function
+  // Logout function
   const logout = () => {
     setIsAuthenticated(false);
     setUser(null);
@@ -248,8 +264,8 @@ useEffect(() => {
       isAuthenticated, loading, login, user, movies, genres
       , loadMoreMovies, setPage, setMovies, loadMoreLoading, setLoadMoreLoading, fetchMovies, page, setLoading, setUser
       , selectedGenres, setSelectedGenres,
-      filteredMovies, setGenrePage, genrePage, loadMoreFliteredMovieLoading,movieError,
-      favoriteMovies, setFavoriteMovies,addOrRemoveFavorite,logout , lastSearchMovie, setLastSearchMovie
+      filteredMovies, setGenrePage, genrePage, loadMoreFliteredMovieLoading, movieError,
+      favoriteMovies, setFavoriteMovies, addOrRemoveFavorite, logout, lastSearchMovie, setLastSearchMovie, darkMode, toggleDarkMode
 
     }}>
       {children}

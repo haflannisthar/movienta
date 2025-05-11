@@ -11,7 +11,7 @@ const apiKey = import.meta.env.VITE_TMDB_API_KEY;
 
 
 function MovieDetails({ movie }) {
-    const { favoriteMovies, addOrRemoveFavorite } = useContext(MovieContext);
+    const { favoriteMovies, addOrRemoveFavorite, darkMode } = useContext(MovieContext);
     const [actors, setActors] = useState([]);
     const [directors, setDirectors] = useState([]);
     const [trailers, setTrailers] = useState([]);
@@ -88,7 +88,7 @@ function MovieDetails({ movie }) {
                     backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
                 }}
             >
-                <div className="absolute bottom-0 left-0 z-10 p-8 text-white text-left w-full">
+                <div className="absolute bottom-0 left-0 z-10 p-8 text.primary text-left w-full">
                     <h1 className="text-4xl md:text-6xl font-bold mb-4">{movie.title}</h1>
 
                     <p className="text-md md:text-lg max-w-2xl font-bold">
@@ -97,7 +97,7 @@ function MovieDetails({ movie }) {
 
                     <div className="flex items-center gap-4 mt-4">
                         <div
-                            className={`w-12 h-12  flex items-center justify-center rounded-full text-white text-md font-semibold ${getVoteColor(
+                            className={`w-12 h-12  flex items-center justify-center rounded-full text.priamry text-md font-semibold ${getVoteColor(
                                 movie.vote_average
                             )}`}
                         >
@@ -113,23 +113,29 @@ function MovieDetails({ movie }) {
                                 </Tooltip>
                             ) : (
                                 <Tooltip title="Add to Favorite" placement="bottom-end" arrow>
-                                    <StarOutlineIcon className="text-white" fontSize="inherit" style={{ fontSize: 40 }} />
+                                    <StarOutlineIcon className="text.primary" fontSize="inherit" style={{ fontSize: 40 }} />
                                 </Tooltip>
                             )}
                         </div>
                     </div>
                 </div>
-                <div className="bottom-fade-overlay"></div>
-            </div>
+<div
+              className="bottom-fade-overlay"
+              style={{
+                background: darkMode
+                  ? 'linear-gradient(to bottom, rgba(3, 10, 27, 0) 0%, #030A1B 100%)'
+                  : 'linear-gradient(to bottom, rgba(3, 10, 27, 0) 0%, white 100%)'
+              }}
+            ></div>            </div>
 
             {/* Scrollable About section */}
-            <div className=" text-white ps-8 pb-7 pe-8 mt-12 md:16 ">
+            <div className=" text.primary ps-8 pb-7 pe-8 mt-12 md:16 ">
                 <h2 className="text-6xl font-bold mb-4">About</h2>
                 <p className="text-md md:text-lg w-full ">{movie.overview}</p>
             </div>
 
             {/* Genres Section */}
-            <div className="text-white ps-8 pb-5 pe-8">
+            <div className="text.primary ps-8 pb-5 pe-8">
                 <h2 className="text-6xl font-bold mb-4">Genres</h2>
                 <div className="text-md md:text-lg w-full">
                     {movie.genres && movie.genres.length > 0 ? (
@@ -148,7 +154,7 @@ function MovieDetails({ movie }) {
             </div>
 
             {/* Characters Section */}
-            <div className="text-white ps-8 pe-8 pb-7 mt-4 md:16">
+            <div className="text.primary ps-8 pe-8 pb-7 mt-4 md:16">
                 <h2 className="text-6xl font-bold mb-6">Characters</h2>
                 {actors && actors.length > 0 ? (
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -170,7 +176,7 @@ function MovieDetails({ movie }) {
             </div>
 
             {/* Director Section */}
-            <div className="text-white ps-8 pe-8 pb-7 mt-4 md:16">
+            <div className="text.primary ps-8 pe-8 pb-7 mt-4 md:16">
                 <h2 className="text-6xl font-bold mb-6">Director</h2>
                 {directors && directors.length > 0 ? (
                     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-4">
@@ -191,7 +197,7 @@ function MovieDetails({ movie }) {
             </div>
 
 
-            <div className="text-white ps-8 pe-8 pb-7 mt-4 md:16">
+            <div className="text.primary ps-8 pe-8 pb-7 mt-4 md:16">
                 <h2 className="text-6xl font-bold mb-6">Trailer</h2>
 
                 {trailers && trailers.length > 0 ? (
@@ -208,7 +214,7 @@ function MovieDetails({ movie }) {
                         ))}
                     </div>
                 ) : (
-                    <p className="text-xl text-white">No trailer available</p>
+                    <p className="text-xl text.primary">No trailer available</p>
                 )}
             </div>
 

@@ -10,7 +10,6 @@ import Genres from '../Components/Genres';
 import HollywoodStars from '../Components/HollywoodStars';
 import Footer from '../Components/Footer';
 
-
 function HomePage() {
   const {
     loading,
@@ -24,6 +23,7 @@ function HomePage() {
     setGenrePage,
     loadMoreFliteredMovieLoading,
     movieError,
+    darkMode
   } = useContext(MovieContext);
 
   if (loading && movies.length === 0) {
@@ -36,22 +36,18 @@ function HomePage() {
     fetchMovies(nextPage);
   };
 
-
-
-
-
   return (
     <div>
       <Navbar />
       <MovieSlider />
 
       <div className="container mx-auto mt-15 px-4 sm:px-6 lg:px-8">
-        <h1 className="text-4xl text-white font-bold mb-12">Trending Movies</h1>
+        <h1 className="text-4xl font-bold mb-12" sx={{ color: 'text.primary' }}>Trending Movies</h1>
 
         {/* Trending Movies Section */}
         <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 gap-6">
           {movieError ? (
-            <div className="col-span-full flex flex-col items-center justify-center text-white">
+            <div className="col-span-full flex flex-col items-center justify-center" sx={{ color: 'text.primary' }}>
               <p className="text-xl font-bold mb-4">Error loading movies. Please try again.</p>
               <button
                 onClick={() => fetchMovies(1)}
@@ -72,10 +68,9 @@ function HomePage() {
             variant="outlined"
             onClick={handleLoadMore}
             sx={{
-              color: 'white',
+              color: 'text.primary',
               borderColor: '#E5228D',
               '&:hover': {
-
                 backgroundColor: 'rgba(255, 255, 255, 0.1)',
               },
             }}
@@ -90,7 +85,7 @@ function HomePage() {
 
         {/* Genre Filter Section */}
         <div className="mt-10 mb-5">
-          <h1 className="text-2xl md:text-4xl font-bold mb-5 text-white">Filter Movies By Genre</h1>
+          <h1 className="text-2xl md:text-4xl font-bold mb-5" sx={{ color: 'text.primary' }}>Filter Movies By Genre</h1>
           <Genres />
 
           <div className="mt-5">
@@ -107,7 +102,7 @@ function HomePage() {
                     variant="outlined"
                     onClick={() => setGenrePage(prev => prev + 1)}
                     sx={{
-                      color: 'white',
+                      color: 'text.primary',
                       borderColor: '#E5228D',
                       '&:hover': {
                         borderColor: 'white',
@@ -124,11 +119,11 @@ function HomePage() {
                 </div>
               </>
             ) : selectedGenres.length > 0 ? (
-              <p className="text-white text-center text-xl font-bold">
+              <p className="text-center text-xl font-bold" sx={{ color: 'text.primary' }}>
                 No movies found for the selected genres.
               </p>
             ) : (
-              <p className="text-white text-center text-xl font-bold">
+              <p className="text-center text-xl font-bold" sx={{ color: 'text.primary' }}>
                 Please select a genre to filter movies.
               </p>
             )}
@@ -136,42 +131,25 @@ function HomePage() {
         </div>
       </div>
 
-
-
-{/* Hollywood Stars Section */}
-      <div className='bg-[#228EE6] min-h-[400px]  py-5 '>
-
-        <div className='flex flex-col items-center justify-center'>
-
-          <h1 className='text-3xl lg:text-6xl mt-10 font-bold text-center text-[#EBFAFF]'>Explore Hollywood’s Brightest Stars</h1>
-          <p className='text-xl mx-3 mt-5 text-[#EBFAFF] text-center'>Discover the stars who define the magic of movies.</p>
-
+      {/* Hollywood Stars Section */}
+      <div className="bg-[#228EE6] min-h-[400px] py-5">
+        <div className="flex flex-col items-center justify-center">
+          <h1 className="text-3xl lg:text-6xl mt-10 font-bold text-center" sx={{ color: 'text.primary' }}>
+            Explore Hollywood’s Brightest Stars
+          </h1>
+          <p className="text-xl mx-3 mt-5 text-center" sx={{ color: 'text.primary' }}>
+            Discover the stars who define the magic of movies.
+          </p>
         </div>
 
-        <div className="grid  grid-cols-2 sm:grid-cols-3 md:grid-cols-5 mt-10  gap-6 mx-3 justify-items-center max-w-7xl">
+        <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-5 mt-10 gap-6 mx-3 justify-items-center max-w-7xl">
           <HollywoodStars />
         </div>
-
-        <div>
-
-        </div>
-
       </div>
 
-
-
       <Footer />
-
-
-
-
-
-
     </div>
   );
 }
 
 export default HomePage;
-
-
-

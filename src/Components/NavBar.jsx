@@ -24,6 +24,8 @@ import { MovieContext } from "../Context/Context";
 import { useContext, useEffect, useState } from 'react';
 import axios from 'axios';
 import debounce from 'lodash.debounce';
+import { DarkModeSwitch } from 'react-toggle-dark-mode';
+
 
 
 
@@ -78,7 +80,7 @@ function NavBar() {
   const [searchTerm, setSearchTerm] = useState('');
   const [searchResults, setSearchResults] = useState([]);
 
-  const { lastSearchMovie, setLastSearchMovie, logout } = useContext(MovieContext);
+  const { lastSearchMovie, setLastSearchMovie, logout, darkMode, toggleDarkMode } = useContext(MovieContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -196,44 +198,65 @@ function NavBar() {
                   <Button
                     key={page}
                     onClick={() => !isDisabled && navigate(path)}
-                    sx={{
+                    sx={(theme) => ({
                       my: 2,
-                      color: isDisabled ? 'rgba(255, 255, 255, 0.5)' : 'white',
-                      borderBottom: isActive ? '2px solid white' : 'none',
+                      color: isDisabled
+                        ? theme.palette.text.disabled || 'rgba(255, 255, 255, 0.5)'
+                        : theme.palette.text.primary,
+                      borderBottom: isActive ? `2px solid ${theme.palette.text.primary}` : 'none',
                       borderRadius: 0,
                       cursor: isDisabled ? 'default' : 'pointer',
                       pointerEvents: isDisabled ? 'none' : 'auto',
-                    }}
+                    })}
                   >
                     {page}
                   </Button>
+
                 );
               })}
             </Box>
 
             {/* Search Input */}
             <Search>
-              <SearchIconWrapper>
+              <SearchIconWrapper sx={{ color: 'text.primary' }}>
                 <SearchIcon />
               </SearchIconWrapper>
               <StyledInputBase
                 placeholder="Search…"
                 onClick={() => setSearchModalOpen(true)}
                 readOnly
+                sx={{color: 'text.primary'}}
               />
             </Search>
 
+            <Box >
+              <Tooltip title={darkMode ? "Switch to light mode" : "Switch to dark mode"}>
+                <DarkModeSwitch
+                  checked={!darkMode}
+                  onChange={toggleDarkMode}
+                  size={24}
+                  moonColor="#000"
+                  sunColor="#fff"
+                />
+              </Tooltip>
+            </Box>
+
             {/* User Avatar */}
-            <Box sx={{ flexGrow: 0, ml: 2, display: { xs: 'none', md: 'flex' } }}>
+            <Box sx={{ flexGrow: 0, color: 'text.primary', ml: 2, display: { xs: 'none', md: 'flex' } }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg" />
+                  <Avatar alt="User Avatar" src="/static/images/avatar/2.jpg"
+                    sx={{
+                      backgroundColor: 'text.primary', 
+                      color: 'background.default', 
+                    }}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu anchorEl={anchorElUser} open={Boolean(anchorElUser)} onClose={handleCloseUserMenu}>
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleLogout}>
-                    <Typography textAlign="center">{setting}</Typography>
+                    <Typography textAlign="center" color="text.primary">{setting}</Typography>
                   </MenuItem>
                 ))}
               </Menu>

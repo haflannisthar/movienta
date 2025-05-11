@@ -27,7 +27,6 @@ const SlideContent = styled('div')({
   justifyContent: 'center',
   alignItems: 'center',
   textAlign: 'center',
-  color: 'white',
   zIndex: 2,
 });
 
@@ -57,18 +56,10 @@ const Overlay = styled('div')({
   zIndex: 1,
 });
 
-const BottomFade = styled('div')({
-  position: 'absolute',
-  bottom: 0,
-  left: 0,
-  width: '100%',
-  height: '30%',
-  background: 'linear-gradient(to top, rgba(0,0,0,0.7), transparent)',
-  zIndex: 2,
-});
+
 
 const MovieSlider = () => {
-  const { movies } = useContext(MovieContext);
+  const { movies, darkMode } = useContext(MovieContext);
   const navigate = useNavigate();
   const topFive = movies.slice(0, 5);
 
@@ -95,25 +86,27 @@ const MovieSlider = () => {
           <SwiperSlide key={index} className="h-full w-full">
             <Overlay />
             <SlideContent>
-              <h2 
+              <h2
                 className="text-4xl font-bold mb-4"
                 data-swiper-parallax="-30%"
+                style={{ color: darkMode ? '#EBFAFF' : '#030A1B' }}
               >
                 {movie.title}
               </h2>
-              <p 
+              <p
                 className="max-w-3xl leading-7 tracking-wide mb-6"
                 data-swiper-parallax="-20%"
+                style={{ color: darkMode ? '#EBFAFF' : '#030A1B' }}
               >
                 {movie.overview}
               </p>
               <Button
                 variant="outlined"
                 sx={{
-                  color: 'white',
-                  borderColor: 'white',
+                  color: darkMode ? '#EBFAFF' : '#030A1B',
+                  borderColor: darkMode ? '#EBFAFF' : '#030A1B',
                   '&:hover': {
-                    borderColor: 'white',
+                    borderColor: 'background.default',
                     backgroundColor: 'rgba(255, 255, 255, 0.1)',
                   },
                 }}
@@ -134,12 +127,16 @@ const MovieSlider = () => {
                 }}
               />
             </ImageContainer>
-            <BottomFade />
-            <div className="bottom-fade-overlay"></div>
+            <div
+              className="bottom-fade-overlay"
+              style={{
+                background: darkMode
+                  ? 'linear-gradient(to bottom, rgba(3, 10, 27, 0) 0%, #030A1B 100%)'
+                  : 'linear-gradient(to bottom, rgba(3, 10, 27, 0) 0%, white 100%)'
+              }}
+            ></div>
           </SwiperSlide>
         ))}
-
-       
       </Swiper>
     </FashionSliderContainer>
   );

@@ -10,7 +10,7 @@ import ArrowCircleRightOutlinedIcon from '@mui/icons-material/ArrowCircleRightOu
 import ArrowCircleLeftOutlinedIcon from '@mui/icons-material/ArrowCircleLeftOutlined';
 
 function Genres() {
-  const { genres, selectedGenres, setSelectedGenres } = useContext(MovieContext);
+  const { genres, selectedGenres, setSelectedGenres, darkMode } = useContext(MovieContext);
 
   const prevRef = useRef(null);
   const nextRef = useRef(null);
@@ -72,13 +72,17 @@ function Genres() {
             <SwiperSlide key={genre.id} className="!w-auto">
               <button
                 onClick={() => toggleGenre(genre.id)}
-                className={`px-4 py-2 rounded-full  border border-[#E5228D] text-sm whitespace-nowrap transition-colors duration-200 ${selectedGenres.includes(genre.id)
+                className={`px-4 py-2 rounded-full border border-[#E5228D] text-sm whitespace-nowrap transition-colors duration-200
+    ${selectedGenres.includes(genre.id)
                     ? 'bg-[#E5228D] text-white'
-                    : 'bg-[#030A1B] text-white hover:bg-[#1A1A2E]'
+                    : darkMode
+                      ? 'bg-[#030A1B] text-white hover:bg-[#1A1A2E]'
+                      : 'bg-white text-[#030A1B] hover:bg-[#f2f2f2]'
                   }`}
               >
                 {genre.name}
               </button>
+
             </SwiperSlide>
           ))}
         </Swiper>
